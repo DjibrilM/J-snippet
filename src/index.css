@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=K2D:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -9,6 +11,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-family: 'Fredoka One', cursive;
 }
 
 code {
@@ -16,13 +19,29 @@ code {
     monospace;
 }
 
+html,
+body
+{
+  height: 100%;
+  width: 100%;
+}
+
 .editor-container
 { 
   width: 100%;
   max-height: 500px;
+  min-width: 300px;
   min-height: 500px;
   overflow: hidden;
   height: 100%;
+}
+
+
+.edit-wrapper
+{
+  width: 100%;
+  max-width: 1000px;
+  min-width: 500px;
 }
 
 .editor{
@@ -37,4 +56,20 @@ border-right: 1px solid rgba(255, 255, 255, 0.248);
 .top-pen > :nth-child(2)
 {
 border-right: 1px solid rgba(255, 255, 255, 0.248);
+}
+
+
+img{
+  -webkit-user-drag: none;
+}
+
+.draggable {
+  /* Indicate the element draggable */
+  cursor: move;
+
+  /* It will be positioned absolutely */
+  position: absolute;
+
+  /* Doesn't allow to select the content inside */
+  user-select: none;
 }

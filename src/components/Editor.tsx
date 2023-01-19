@@ -20,6 +20,8 @@ interface Props {
 }
 
 const Editor: React.FC<Props> = ({ title, language, onchange }): JSX.Element => {
+
+
     switch (language) {
         case "javascript":
             return (
@@ -40,7 +42,7 @@ const Editor: React.FC<Props> = ({ title, language, onchange }): JSX.Element => 
                         className='editor'
                         height="500px"
                         width='100%'
-                        extensions={[javascript({ jsx: true })]}
+                        extensions={[javascript()]}
                         onChange={(value: string) => onchange(value, language)}
                         theme={aura}
                     />
