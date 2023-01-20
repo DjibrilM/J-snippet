@@ -54,6 +54,23 @@ const editedDoc = (html: string, style: string, javscript: string) => {
 const App = () => {
   const [editor, setEditor] = useState<any>(initialState);
   const [editing, startEditing] = useTransition();
+  const [Editors, setEditors] = useState<{
+    title: string,
+    language: string,
+  }[]>([
+    {
+      title: 'HTML',
+      language: "html"
+    },
+    {
+      title: 'CSS',
+      language: "css"
+    },
+    {
+      title: 'JS',
+      language: "javascript",
+    }
+  ]);
 
   const edit = (value: string, language: string) => {
     startEditing(() => {
@@ -63,6 +80,37 @@ const App = () => {
     })
   }
 
+  
+
+  const copyText = (language: string) => {
+    switch (language) {
+      case "javascript":
+        navigator.clipboard.writeText(editor['javascript'].codes).then(result => {
+          // alert('copied' + 'rrrrr')
+        }).catch(error => {
+          alert('fail to copy')
+        })
+        break
+      case "css":
+        navigator.clipboard.writeText(editor['css'].codes).then(result => {
+          // alert('copied' + 'rrrrr')
+        }).catch(error => {
+          alert('fail to copy')
+        })
+        break;
+      case "html":
+        navigator.clipboard.writeText(editor['javascript'].codes).then(result => {
+          // alert('copied' + 'rrrrr')
+        }).catch(error => {
+          alert('fail to copy')
+        })
+        break
+      default:
+        break;
+    }
+
+
+  }
 
 
   const editedCode =
@@ -90,39 +138,28 @@ const App = () => {
     <>
       <Header />
       <div className="pen top-pen flex w-full  bg-[#050509] gap-5">
-        <Editor
-          onchange={(value: string, language: string) => {
-            edit(value, language);
-          }}
-          title='HTML'
-          language='html' />
 
-        <div className="h-full flex w-full duration-500  overflow-hidden">
-          <Editor
-            onchange={(value: string, language: string) => {
-              edit(value, language);
-            }}
-            title='CSS'
-            language='css' />
-
-        </div>
-
-        <div className="w-full h-full flex">
-          <Editor
-            onchange={(value: string, language: string) => {
-              edit(value, language);
-            }}
-            title='JS'
-            language='javascript' />
-        </div>
+        {
+          Editors.map((editor: any) => {
+            return (
+              <Editor
+                onchange={(value: string, language: string) => {
+                  edit(value, language);
+                }}
+                copy={copyText}
+                title={editor.title}
+                language={editor.language} />
+            )
+          })
+        }
       </div>
 
       <div className="pen bottom-pen h-[100vh] w-full  ">
         <div className="h-12 mt-10 w-full border-y">
           <div className="flex h-full items-center  ml-5 gap-8">
-            <div className="w-4 h-4 rounded-full bg-green-300"></div>
-            <div className="w-4 h-4 rounded-full bg-orange-300"></div>
-            <div className="w-4 h-4 rounded-full bg-blue-300"></div>
+            <div className="w-4 h-4 rounded-full bg-[#f96057]"></div>
+            <div className="w-4 h-4 rounded-full bg-[#f8ce52]"></div>
+            <div className="w-4 h-4 rounded-full bg-[#5fcf65]"></div>
           </div>
         </div>
         <iframe

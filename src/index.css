@@ -20,46 +20,40 @@ code {
 }
 
 html,
-body
-{
+body {
   height: 100%;
   width: 100%;
 }
 
-.editor-container
-{ 
+.editor-container {
+  position: relative;
   width: 100%;
-  max-height: 500px;
-  min-width: 300px;
+  max-height: 600px;
+  height: 100%;
   min-height: 500px;
-  overflow: hidden;
+}
+
+
+
+.top-pen {
+  height: 560px;
+}
+
+.active {
+  width: 4000px;
   height: 100%;
 }
 
-
-.edit-wrapper
-{
-  width: 100%;
-  max-width: 1000px;
-  min-width: 500px;
+.top-pen> :nth-child(1) {
+  border-right: 1px solid rgba(255, 255, 255, 0.248);
 }
 
-.editor{
-  overflow: auto;
-}
-
-.top-pen > :nth-child(1)
-{
-border-right: 1px solid rgba(255, 255, 255, 0.248);
-}
-
-.top-pen > :nth-child(2)
-{
-border-right: 1px solid rgba(255, 255, 255, 0.248);
+.top-pen> :nth-child(2) {
+  border-right: 1px solid rgba(255, 255, 255, 0.248);
 }
 
 
-img{
+img {
   -webkit-user-drag: none;
 }
 
