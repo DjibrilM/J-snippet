@@ -153,12 +153,18 @@ const App = () => {
     })
     prevValue[prevActive].active = false;
     setEditors([...prevValue]);
+  }
 
+
+  const storeToLocalStorage = () => {
+    const convertCodeToArray = [editor];
+    const convertToJson = JSON.stringify(convertCodeToArray);
+    localStorage.setItem('codes', convertToJson);
   }
 
   return (
     <>
-      <Header />
+      <Header storeCode={() => storeToLocalStorage()} />
       <div className="pen top-pen flex w-full  bg-[#050509] gap-5">
 
         {
@@ -191,7 +197,7 @@ const App = () => {
           </div>
         </div>
         <iframe
-          srcDoc={editedDoc(editor['html'].codes,editor['css'].codes,editor['javascript'].codes)}
+          srcDoc={editedDoc(editor['html'].codes, editor['css'].codes, editor['javascript'].codes)}
           title='output'
           frameBorder={0}
           width={'100%'}

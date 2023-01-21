@@ -41,7 +41,7 @@ body {
 }
 
 .active {
-  width: 5000px;
+  width: 6000px;
   height: 100%;
 }
 
@@ -68,3 +68,5 @@ img {
   /* Doesn't allow to select the content inside */
   user-select: none;
 }
+
+
