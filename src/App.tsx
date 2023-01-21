@@ -156,27 +156,6 @@ const App = () => {
 
   }
 
-
-  const editedCode =
-    `<html>
-  <head>
-     <style>
-       ${editor['css'].codes}
-     </style>
-
-  </head>
-
-  
-  <body>
-    ${editor['html'].codes}
-
-    <script>
-    ${editor['javascript'].codes}
-  </script>
-  </body>
-</html>
-`
-
   return (
     <>
       <Header />
@@ -212,7 +191,7 @@ const App = () => {
           </div>
         </div>
         <iframe
-          srcDoc={editedCode}
+          srcDoc={editedDoc(editor['html'].codes,editor['css'].codes,editor['javascript'].codes)}
           title='output'
           frameBorder={0}
           width={'100%'}
