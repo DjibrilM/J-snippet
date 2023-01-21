@@ -1,4 +1,7 @@
 
+import { javascript } from '@codemirror/lang-javascript';
+import { html } from '@codemirror/lang-html';
+import { css } from '@codemirror/lang-css';
 import javasciptLogo from './assets/images/pngegg.png';
 import cssLogo from './assets/images/css-3.png';
 import htmlogo from './assets/images/html.png';
@@ -8,9 +11,6 @@ import { useState } from 'react';
 import { useTransition } from 'react';
 import Header from './components/Header';
 import { useEffect } from 'react';
-import { javascript } from '@codemirror/lang-javascript';
-import { html } from '@codemirror/lang-html';
-import { css } from '@codemirror/lang-css';
 
 
 
@@ -68,7 +68,8 @@ const App = () => {
       language: string,
       active: boolean,
       logo: JSX.Element,
-      extension: Function
+      extension: Function,
+      value: string
     }[]>([
       {
         title: 'HTML',
@@ -76,6 +77,7 @@ const App = () => {
         active: false,
         logo: (<img src={javasciptLogo} alt="jslogo" className='w-7' />),
         extension: () => html(),
+        value: ""
       },
       {
         title: 'CSS',
@@ -83,6 +85,7 @@ const App = () => {
         active: false,
         logo: (<img src={cssLogo} alt="jslogo" className='w-7' />),
         extension: () => css(),
+        value: ""
       },
       {
         title: 'JS',
@@ -90,15 +93,22 @@ const App = () => {
         active: false,
         logo: (<img src={cssLogo} alt="jslogo" className='w-7' />),
         extension: () => javascript(),
+        value: ""
       }
     ]);
 
   const edit = (value: string, language: string) => {
-    startEditing(() => {
-      const previousValue: any = editor;
-      previousValue[language].codes = value;
-      setEditor({ ...previousValue });
-    })
+
+    try {
+      startEditing(() => {
+        console.log('hiting')
+        const previousValue: any = editor;
+        previousValue[language].codes = value;
+        setEditor({ ...previousValue });
+      })
+    } catch (error) {
+      alert('enable to edit')
+    }
   }
 
 
@@ -137,7 +147,8 @@ const App = () => {
       language: string,
       active: boolean,
       logo: JSX.Element,
-      extension: Function
+      extension: Function,
+      value: string
     }[] = [...Editors];
 
     const prevActive = prevValue.findIndex((el: any) => el.active === true);
@@ -155,12 +166,33 @@ const App = () => {
     setEditors([...prevValue]);
   }
 
-
   const storeToLocalStorage = () => {
     const convertCodeToArray = [editor];
     const convertToJson = JSON.stringify(convertCodeToArray);
     localStorage.setItem('codes', convertToJson);
   }
+
+
+  //get stored codes
+  useEffect(() => {
+    const prevEditors = Editors;
+    const getCodes: any = localStorage.getItem('codes');
+    const convertToArray: [] | any = JSON.parse(getCodes);
+    const maped = prevEditors.map((el, index) => {
+      const convert = convertToArray[0];
+      const code = convert[el.language].codes;
+      return {
+        ...el,
+        value: code,
+      }
+    })
+
+    edit(convertToArray[0].javascript.codes, 'javascript');
+    edit(convertToArray[0].html.codes, 'html');
+    edit(convertToArray[0].css.codes, 'css');
+    setEditors([...maped]);
+  }, []);
+
 
   return (
     <>
@@ -182,6 +214,7 @@ const App = () => {
                 active={editor.active}
                 setActive={() => setActiveEditor(index)}
                 resetActiveEditor={() => resetActiveEditor()}
+                value={editor.value}
               />
             )
           })

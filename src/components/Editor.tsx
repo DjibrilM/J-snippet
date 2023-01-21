@@ -19,10 +19,13 @@ interface Props {
     language: string,
     extension: Function,
     setActive: Function,
-    resetActiveEditor: Function
+    resetActiveEditor: Function,
+    value: string,
 }
 
-const Editor: React.FC<Props> = ({ title, language, onchange, copy, active, logo, extension, setActive,resetActiveEditor }): JSX.Element => {
+const Editor: React.FC<Props> = ({ title, language, onchange, copy, active, logo, extension, setActive, resetActiveEditor, value }): JSX.Element => {
+
+
 
     return (
         <div
@@ -48,6 +51,7 @@ const Editor: React.FC<Props> = ({ title, language, onchange, copy, active, logo
             {/*  */}
 
             <CodeMirror
+                value={value}
                 maxHeight='500px'
                 height='100%'
                 minHeight='200px'
