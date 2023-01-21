@@ -13,7 +13,6 @@ import Header from './components/Header';
 import { useEffect } from 'react';
 
 const initialState: {
-
   javascript: {
     codes: string,
   }
@@ -110,7 +109,6 @@ const App = () => {
   }
 
 
-
   const copyText = (language: string) => {
     switch (language) {
       case "javascript":
@@ -138,6 +136,8 @@ const App = () => {
         break;
     }
   }
+
+  
 
   const setActiveEditor = (index: number) => {
     const prevValue: {
@@ -171,6 +171,7 @@ const App = () => {
   }
 
 
+
   //get stored codes
   useEffect(() => {
     const prevEditors = Editors;
@@ -191,7 +192,6 @@ const App = () => {
     edit(convertToArray[0].css.codes, 'css');
     setEditors([...maped]);
   }, []);
-
 
   return (
     <>
