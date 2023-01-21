@@ -99,7 +99,6 @@ const App = () => {
   }
 
 
-
   const copyText = (language: string) => {
     switch (language) {
       case "javascript":
@@ -128,6 +127,8 @@ const App = () => {
     }
   }
 
+  
+
   const setActiveEditor = (index: number) => {
     const prevValue: {
       title: string,
@@ -153,6 +154,7 @@ const App = () => {
 
   }
 
+  
   return (
     <>
       <Header />
