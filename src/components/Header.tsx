@@ -6,7 +6,6 @@ import { useState } from "react";
 import Spinner from "./spinner";
 import { MdOutlineDeleteOutline } from 'react-icons/md'
 
-
 interface Props {
   storeCode: Function
 }
