@@ -1,4 +1,7 @@
 
+import { javascript } from '@codemirror/lang-javascript';
+import { html } from '@codemirror/lang-html';
+import { css } from '@codemirror/lang-css';
 import javasciptLogo from './assets/images/pngegg.png';
 import cssLogo from './assets/images/css-3.png';
 import htmlogo from './assets/images/html.png';
@@ -8,9 +11,6 @@ import { useState } from 'react';
 import { useTransition } from 'react';
 import Header from './components/Header';
 import { useEffect } from 'react';
-import { javascript } from '@codemirror/lang-javascript';
-import { html } from '@codemirror/lang-html';
-import { css } from '@codemirror/lang-css';
 
 const initialState: {
   javascript: {
@@ -65,14 +65,16 @@ const App = () => {
       language: string,
       active: boolean,
       logo: JSX.Element,
-      extension: Function
+      extension: Function,
+      value: string
     }[]>([
       {
         title: 'HTML',
         language: "html",
         active: false,
-        logo: (<img src={javasciptLogo} alt="jslogo" className='w-7' />),
+        logo: (<img src={htmlogo} alt="jslogo" className='w-7' />),
         extension: () => html(),
+        value: ""
       },
       {
         title: 'CSS',
@@ -80,22 +82,30 @@ const App = () => {
         active: false,
         logo: (<img src={cssLogo} alt="jslogo" className='w-7' />),
         extension: () => css(),
+        value: ""
       },
       {
         title: 'JS',
         language: "javascript",
         active: false,
-        logo: (<img src={cssLogo} alt="jslogo" className='w-7' />),
+        logo: (<img src={javasciptLogo} alt="jslogo" className='w-7' />),
         extension: () => javascript(),
+        value: ""
       }
     ]);
 
   const edit = (value: string, language: string) => {
-    startEditing(() => {
-      const previousValue: any = editor;
-      previousValue[language].codes = value;
-      setEditor({ ...previousValue });
-    })
+
+    try {
+      startEditing(() => {
+        console.log('hiting')
+        const previousValue: any = editor;
+        previousValue[language].codes = value;
+        setEditor({ ...previousValue });
+      })
+    } catch (error) {
+      alert('enable to edit')
+    }
   }
 
 
@@ -135,7 +145,8 @@ const App = () => {
       language: string,
       active: boolean,
       logo: JSX.Element,
-      extension: Function
+      extension: Function,
+      value: string
     }[] = [...Editors];
 
     const prevActive = prevValue.findIndex((el: any) => el.active === true);
@@ -151,13 +162,40 @@ const App = () => {
     })
     prevValue[prevActive].active = false;
     setEditors([...prevValue]);
-
   }
 
-  
+  const storeToLocalStorage = () => {
+    const convertCodeToArray = [editor];
+    const convertToJson = JSON.stringify(convertCodeToArray);
+    localStorage.setItem('codes', convertToJson);
+  }
+
+
+
+  //get stored codes
+  useEffect(() => {
+    const prevEditors = Editors;
+    const getCodes: any = localStorage.getItem('codes');
+    if(!getCodes) return
+    const convertToArray: [] | any = JSON.parse(getCodes);
+    const maped = prevEditors.map((el, index) => {
+      const convert = convertToArray[0];
+      const code = convert[el.language].codes;
+      return {
+        ...el,
+        value: code,
+      }
+    })
+
+    edit(convertToArray[0].javascript.codes, 'javascript');
+    edit(convertToArray[0].html.codes, 'html');
+    edit(convertToArray[0].css.codes, 'css');
+    setEditors([...maped]);
+  }, []);
+
   return (
     <>
-      <Header />
+      <Header storeCode={() => storeToLocalStorage()} />
       <div className="pen top-pen flex w-full  bg-[#050509] gap-5">
 
         {
@@ -175,10 +213,15 @@ const App = () => {
                 active={editor.active}
                 setActive={() => setActiveEditor(index)}
                 resetActiveEditor={() => resetActiveEditor()}
+                value={editor.value}
               />
             )
           })
         }
+        
+      </div>
+      <div className="w-full h-10 border-t flex items-center pl-2 border-b bg-black relative bottom-2 border-[#ffffff53]">
+        <p className='text-[#ffffff82] tracking-widest	'>save : Ctrl + S</p>
       </div>
 
       <div className="pen bottom-pen h-[100vh] w-full  ">
@@ -190,7 +233,7 @@ const App = () => {
           </div>
         </div>
         <iframe
-          srcDoc={editedDoc(editor['html'].codes,editor['css'].codes,editor['javascript'].codes)}
+          srcDoc={editedDoc(editor['html'].codes, editor['css'].codes, editor['javascript'].codes)}
           title='output'
           frameBorder={0}
           width={'100%'}
