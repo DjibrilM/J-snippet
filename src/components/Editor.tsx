@@ -25,8 +25,6 @@ interface Props {
 
 const Editor: React.FC<Props> = ({ title, language, onchange, copy, active, logo, extension, setActive, resetActiveEditor, value }): JSX.Element => {
 
-
-
     return (
         <div
             className={"editor-container " + (active === true ? ' active' : " noActive")}  >
@@ -52,7 +50,7 @@ const Editor: React.FC<Props> = ({ title, language, onchange, copy, active, logo
 
             <CodeMirror
                 value={value}
-                maxHeight='500px'
+                maxHeight='445px'
                 height='100%'
                 minHeight='200px'
                 className='editor'
@@ -63,7 +61,8 @@ const Editor: React.FC<Props> = ({ title, language, onchange, copy, active, logo
                 style={{
                     border: "solid  0px",
                     position: "absolute",
-                    overflow: "auto",
+                    overflowY: "auto",
+                    overflowX: "clip",
                     width: '100%',
                     maxHeight: '500px',
                     height: '100%',

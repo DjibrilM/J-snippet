@@ -75,7 +75,7 @@ const App = () => {
         title: 'HTML',
         language: "html",
         active: false,
-        logo: (<img src={javasciptLogo} alt="jslogo" className='w-7' />),
+        logo: (<img src={htmlogo} alt="jslogo" className='w-7' />),
         extension: () => html(),
         value: ""
       },
@@ -91,7 +91,7 @@ const App = () => {
         title: 'JS',
         language: "javascript",
         active: false,
-        logo: (<img src={cssLogo} alt="jslogo" className='w-7' />),
+        logo: (<img src={javasciptLogo} alt="jslogo" className='w-7' />),
         extension: () => javascript(),
         value: ""
       }
@@ -177,6 +177,7 @@ const App = () => {
   useEffect(() => {
     const prevEditors = Editors;
     const getCodes: any = localStorage.getItem('codes');
+    if(!getCodes) return
     const convertToArray: [] | any = JSON.parse(getCodes);
     const maped = prevEditors.map((el, index) => {
       const convert = convertToArray[0];
@@ -219,6 +220,10 @@ const App = () => {
             )
           })
         }
+        
+      </div>
+      <div className="w-full h-10 border-t flex items-center pl-2 border-b bg-black relative bottom-2 border-[#ffffff53]">
+        <p className='text-[#ffffff82] tracking-widest	'>save : Ctrl + S</p>
       </div>
 
       <div className="pen bottom-pen h-[100vh] w-full  ">
