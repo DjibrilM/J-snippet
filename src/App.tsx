@@ -35,7 +35,6 @@ const initialState: {
 }
 
 
-
 const editedDoc = (html: string, style: string, javscript: string) => {
   return `
   <html>
@@ -48,13 +47,11 @@ const editedDoc = (html: string, style: string, javscript: string) => {
       ${html}
 
       <script>
-
       try {
         ${javscript}
       } catch (error) {
         console.log(error);
-      }
-     
+      }    
    </script>
     </body>
   </html>
