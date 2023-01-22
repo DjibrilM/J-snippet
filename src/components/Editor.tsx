@@ -27,11 +27,6 @@ interface Props {
 const Editor: React.FC<Props> = ({ title, language, onchange, copy, active, logo, extension, setActive, resetActiveEditor, value }): JSX.Element => {
     const [copied, setCopied] = useState<boolean>();
 
-    useEffect(() => {
-
-    }, [value]);
-
-
     return (
         <div
             className={"editor-container " + (active === true ? ' active' : " noActive")}  >
