@@ -48,7 +48,13 @@ const editedDoc = (html: string, style: string, javscript: string) => {
       ${html}
 
       <script>
-      ${javscript}
+
+      try {
+        ${javscript}
+      } catch (error) {
+        console.log(error);
+      }
+     
    </script>
     </body>
   </html>
@@ -96,6 +102,9 @@ const App = () => {
 
   const edit = (value: string, language: string) => {
 
+
+
+
     try {
       startEditing(() => {
         console.log('hiting')
@@ -137,7 +146,7 @@ const App = () => {
     }
   }
 
-  
+
 
   const setActiveEditor = (index: number) => {
     const prevValue: {
@@ -170,13 +179,28 @@ const App = () => {
     localStorage.setItem('codes', convertToJson);
   }
 
+  //get stored 
+  const updateCleaning = () => {
+    const prevEditors = Editors;
+    const maped = prevEditors.map((el, index) => {
+      return {
+        ...el,
+        value: " ",
+      }
+    })
 
 
-  //get stored codes
+    edit(' ', 'javascript');
+    edit(' ', 'html');
+    edit('', 'css');
+    setEditors([...maped]);
+  }
+
+  //get stored codes when loading the page 
   useEffect(() => {
     const prevEditors = Editors;
     const getCodes: any = localStorage.getItem('codes');
-    if(!getCodes) return
+    if (!getCodes) return
     const convertToArray: [] | any = JSON.parse(getCodes);
     const maped = prevEditors.map((el, index) => {
       const convert = convertToArray[0];
@@ -195,7 +219,14 @@ const App = () => {
 
   return (
     <>
-      <Header storeCode={() => storeToLocalStorage()} />
+      <Header
+        updateCleaning={() => {
+          updateCleaning();
+        }}
+        storeCode={() => {
+          storeToLocalStorage()
+        }}
+      />
       <div className="pen top-pen flex w-full  bg-[#050509] gap-5">
 
         {
@@ -218,7 +249,7 @@ const App = () => {
             )
           })
         }
-        
+
       </div>
       <div className="w-full h-10 border-t flex items-center pl-2 border-b bg-black relative bottom-2 border-[#ffffff53]">
         <p className='text-[#ffffff82] tracking-widest	'>save : Ctrl + S</p>

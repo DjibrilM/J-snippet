@@ -7,12 +7,13 @@ import Spinner from "./spinner";
 import { MdOutlineDeleteOutline } from 'react-icons/md'
 
 interface Props {
-  storeCode: Function
+  storeCode: Function,
+  updateCleaning: Function
 }
 
-const Header: React.FC<Props> = ({ storeCode }) => {
+const Header: React.FC<Props> = ({ storeCode,updateCleaning }) => {
   const [saveLoading, setSaveLoading] = useState<boolean>();
-  const [clearLoading, setClearLing] = useState<boolean>();
+  const [clearLoading, setClearLoading] = useState<boolean>();
 
   const store = () => {
     setSaveLoading(true);
@@ -24,14 +25,18 @@ const Header: React.FC<Props> = ({ storeCode }) => {
 
 
   const clear = () => {
-
+    updateCleaning();
+    setClearLoading(true)
+    const deleteDatas = window.localStorage.removeItem('codes');
+    setTimeout(() => {
+      setClearLoading(false);
+    }, 1000);
   }
 
   useEffect(() => {
     document.addEventListener('keydown', (e) => {
-      e.preventDefault();
-
       if (e.key.toLowerCase() === 's' && e.ctrlKey) {
+        e.preventDefault();
         const getSaveButton = document.querySelector('.saveBtn') as HTMLButtonElement;
         // Add your code here
         getSaveButton.click();
@@ -49,13 +54,14 @@ const Header: React.FC<Props> = ({ storeCode }) => {
 
 
     <div className="flex h-full items-center gap-4">
-      <button onClick={() => storeCode()} className="w-32 justify-center h-10 rounded-sm active:bg-gray-600 bg-gray-500 text-white uppercase flex items-center gap-1" >
-        {/* <Spinner /> */}
-
-        <>
-          <MdOutlineDeleteOutline />
-          clear
-        </>
+      <button onClick={() => clear()} className="w-32 justify-center h-10 rounded-sm active:bg-gray-600 bg-gray-500 text-white uppercase flex items-center gap-1" >
+        {clearLoading ?
+          <Spinner /> :
+          <>
+            <MdOutlineDeleteOutline />
+            clear
+          </>
+        }
       </button>
 
       <button onClick={() => store()} className="w-32 justify-center h-10 rounded-sm active:bg-blue-600 bg-blue-400 text-white uppercase flex items-center gap-1 saveBtn" >
