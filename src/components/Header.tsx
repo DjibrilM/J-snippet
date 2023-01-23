@@ -1,4 +1,4 @@
-import React, { CSSProperties } from "react";
+import React from "react";
 import logo from '../assets/images/4997543.png';
 import { BsSaveFill } from 'react-icons/bs';
 import { useEffect } from "react";
@@ -55,10 +55,6 @@ const Header: React.FC<Props> = ({ storeCode, updateCleaning }) => {
 
   }, []);
 
-
-
-
-
   return (
     <>
       {showClearModel && <Backdrop clear={() => clear()} cancel={() => setShowClearModel(false)} />}
@@ -75,7 +71,7 @@ const Header: React.FC<Props> = ({ storeCode, updateCleaning }) => {
 
             {showScreenSizer &&
               <>
-                <div className="shadow-lg shadow-lg border-4 border-[#ffffff12] w-[27rem] right-12 h-[11rem] p-4 rounded-md  absolute top-10 z-30 bg-[#0b0b13]">
+                <div className="shadow-lg  border-4 border-[#ffffff12] w-[27rem] right-12 h-[11rem] p-4 rounded-md  absolute top-10 z-30 bg-[#0b0b13]">
 
                   <h1 className="text-[#ffffffc2] text-center mb-8">Change editor view </h1>
 
