@@ -11,6 +11,7 @@ import rightViewImage from '../assets/images/right-view.svg';
 import bottomViewImage from '../assets/images/bottom-view.svg';
 
 
+
 interface Props {
   storeCode: Function,
   updateCleaning: Function
