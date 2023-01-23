@@ -75,7 +75,7 @@ const App = () => {
         title: 'HTML',
         language: "html",
         active: false,
-        logo: (<img src={htmlogo} alt="jslogo" className='w-7' />),
+        logo: (<img src={htmlogo} alt="jslogo" className='w-5' />),
         extension: () => html(),
         value: ""
       },
@@ -83,7 +83,7 @@ const App = () => {
         title: 'CSS',
         language: "css",
         active: false,
-        logo: (<img src={cssLogo} alt="jslogo" className='w-7' />),
+        logo: (<img src={cssLogo} alt="jslogo" className='w-5' />),
         extension: () => css(),
         value: ""
       },
@@ -91,7 +91,7 @@ const App = () => {
         title: 'JS',
         language: "javascript",
         active: false,
-        logo: (<img src={javasciptLogo} alt="jslogo" className='w-7' />),
+        logo: (<img src={javasciptLogo} alt="jslogo" className='w-5' />),
         extension: () => javascript(),
         value: ""
       }
@@ -216,60 +216,65 @@ const App = () => {
 
   return (
     <>
-      <Header
-        updateCleaning={() => {
-          updateCleaning();
-        }}
-        storeCode={() => {
-          storeToLocalStorage()
-        }}
+      
+        <Header
+          updateCleaning={() => {
+            updateCleaning();
+          }}
+          storeCode={() => {
+            storeToLocalStorage()
+          }}
       />
-      <div className="pen top-pen flex w-full  bg-[#050509] gap-5">
+      
+      <section className='w-full h-full'>
+        <div className="pen top-pen flex w-full  bg-[#050509] gap-5">
 
-        {
-          Editors.map((editor: any, index: number) => {
-            return (
-              <Editor
-                onchange={(value: string, language: string) => {
-                  edit(value, language);
-                }}
-                copy={copyText}
-                title={editor.title}
-                language={editor.language}
-                logo={editor.logo}
-                extension={editor.extension}
-                active={editor.active}
-                setActive={() => setActiveEditor(index)}
-                resetActiveEditor={() => resetActiveEditor()}
-                value={editor.value}
-              />
-            )
-          })
-        }
+          {
+            Editors.map((editor: any, index: number) => {
+              return (
+                <Editor
+                  onchange={(value: string, language: string) => {
+                    edit(value, language);
+                  }}
+                  copy={copyText}
+                  title={editor.title}
+                  language={editor.language}
+                  logo={editor.logo}
+                  extension={editor.extension}
+                  active={editor.active}
+                  setActive={() => setActiveEditor(index)}
+                  resetActiveEditor={() => resetActiveEditor()}
+                  value={editor.value}
+                />
+              )
+            })
+          }
 
-      </div>
-      <div className="w-full h-10 border-t flex items-center pl-2 border-b bg-black relative bottom-2 border-[#ffffff53]">
-        <p className='text-[#ffffff82] tracking-widest	'>save : Ctrl + S</p>
-      </div>
-
-      <div className="pen bottom-pen h-[100vh] w-full  ">
-        <div className="h-12 mt-10 w-full border-y">
-          <div className="flex h-full items-center  ml-5 gap-8">
-            <div className="w-4 h-4 rounded-full bg-[#f96057]"></div>
-            <div className="w-4 h-4 rounded-full bg-[#f8ce52]"></div>
-            <div className="w-4 h-4 rounded-full bg-[#5fcf65]"></div>
-          </div>
         </div>
-        <iframe
-          srcDoc={editedDoc(editor['html'].codes, editor['css'].codes, editor['javascript'].codes)}
-          title='output'
-          frameBorder={0}
-          width={'100%'}
-          height={'100%'}
-          allow-modals={true}
-        >
-        </iframe>
-      </div>
+        <div className="w-full h-10 border-t flex items-center pl-2 border-b bg-black relative bottom-2 border-[#ffffff53]">
+          <p className='text-[#ffffff82] tracking-widest	'>save : Ctrl + S</p>
+        </div>
+
+        <div className="pen bottom-pen h-[100vh] w-full  ">
+          <div className="h-12 w-full border-y">
+            <div className="flex h-full items-center  ml-5 gap-8">
+              <div className="w-4 h-4 rounded-full bg-[#f96057]"></div>
+              <div className="w-4 h-4 rounded-full bg-[#f8ce52]"></div>
+              <div className="w-4 h-4 rounded-full bg-[#5fcf65]"></div>
+            </div>
+          </div>
+
+          <iframe
+            srcDoc={editedDoc(editor['html'].codes, editor['css'].codes, editor['javascript'].codes)}
+            title='output'
+            frameBorder={0}
+            width={'100%'}
+            height={'100%'}
+            allow-modals={true}
+          >
+          </iframe>
+        </div>
+      </section>
     </>
   );
 }

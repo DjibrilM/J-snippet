@@ -22,6 +22,7 @@
     "@uiw/codemirror-themes": "^4.19.7",
     "@uiw/react-codemirror": "^4.19.7",
     "codemirror": "^6.0.1",
+    "framer-motion": "^8.5.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.7.1",

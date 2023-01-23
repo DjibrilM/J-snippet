@@ -30,13 +30,13 @@ const Editor: React.FC<Props> = ({ title, language, onchange, copy, active, logo
     return (
         <div
             className={"editor-container " + (active === true ? ' active' : " noActive")}  >
-            <div className="editor-title w-full h-14 bg-[#050509] flex justify-between items-center border-b-[#21202e] border-b-[4px] ">
+            <div className="editor-title w-full h-10 bg-[#050509] flex justify-between items-center border-b-[#21202e] border-b-[4px] ">
                 {/* <h1>{title}</h1> */}
                 <button className='bg-[#21202e] h-full w-[6rem] text-white flex items-center justify-center gap-2  border-gray-600 border-t-4'>
                     {logo}
-                    {title}
+                  <p className='text-[14px]'>{title}</p>  
                 </button>
-
+            
                 <div className="p-4 flex gap-3 items-center">
                     <div className="relative">
                         {copied &&
@@ -54,6 +54,7 @@ const Editor: React.FC<Props> = ({ title, language, onchange, copy, active, logo
 
                         }} className='text-white cursor-pointer active:text-green-400 duration-100 active:scale-[1.8]' />
                     </div>
+
 
                     {
                         active ?
