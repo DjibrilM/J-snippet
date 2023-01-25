@@ -63,6 +63,7 @@ const editedDoc = (html: string, style: string, javscript: string) => {
 const App = () => {
   const [editor, setEditor] = useState<any>(initialState);
   const [editing, startEditing] = useTransition();
+  const [sideView, setSideView] = useState<boolean>(true);
   const [Editors, setEditors] =
     useState<{
       title: string,
@@ -217,18 +218,28 @@ const App = () => {
 
   return (
     <>
-      
-        <Header
-          updateCleaning={() => {
-            updateCleaning();
-          }}
-          storeCode={() => {
-            storeToLocalStorage()
-          }}
+
+      <Header
+        updateCleaning={() => {
+          updateCleaning();
+        }}
+        storeCode={() => {
+          storeToLocalStorage()
+        }}
       />
-      
-      <section className='w-full h-full'>
-        <div className="pen top-pen flex w-full  bg-[#050509] gap-5">
+
+      <section
+        style={sideView ? { display: "flex", flexDirection: "row" } : {}}
+        className='w-full h-full'>
+        <div className="pen top-pen flex w-full border-r   bg-[#050509] gap-5"
+          style={sideView ? {
+            maxWidth: "500px",
+            height: "100vh",
+            overflow: "auto",
+            width: "100%",
+            flexDirection: 'column',
+            gap: '5px',
+          } : {}}>
 
           {
             Editors.map((editor: any, index: number) => {
@@ -252,11 +263,10 @@ const App = () => {
           }
 
         </div>
-        <div className="w-full h-10 border-t flex items-center pl-2 border-b bg-black relative bottom-2 border-[#ffffff53]">
+        <div style={sideView ? { display: "none" } : {}} className="w-full h-10 border-t flex items-center pl-2 border-b bg-black relative bottom-2 border-[#ffffff53]">
           <p className='text-[#ffffff82] tracking-widest	'>save : Ctrl + S</p>
         </div>
-
-        <div className="pen bottom-pen h-[100vh] w-full  ">
+        <div className="pen bottom-pen h-[90vh] w-full  ">
           <div className="h-12 w-full border-y">
             <div className="flex h-full items-center  ml-5 gap-8">
               <div className="w-4 h-4 rounded-full bg-[#f96057]"></div>

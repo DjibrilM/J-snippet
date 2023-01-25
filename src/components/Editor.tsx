@@ -66,11 +66,13 @@ const Editor: React.FC<Props> = ({ title, language, onchange, copy, active, logo
             </div>
             {/*  */}
 
+            
+            {/* 445px */}
             <CodeMirror
                 value={value}
-                maxHeight='445px'
+                maxHeight='320px'
                 height='100%'
-                minHeight='200px'
+                minHeight='320px'
                 className='editor'
                 extensions={[extension({})]}
                 lang='javascript'
