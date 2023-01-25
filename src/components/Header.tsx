@@ -13,7 +13,6 @@ import screeView from "../recoil/screenView";
 import { useRecoilState } from "recoil";
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 
-
 interface Props {
   storeCode: Function,
   updateCleaning: Function
@@ -27,7 +26,6 @@ const Header: React.FC<Props> = ({ storeCode, updateCleaning }) => {
   const [resizeToLeft, setResizeToLeft] = useState<boolean>();
   const [resizeBottom, setResizeBottom] = useState<boolean>();
   const [screenView, setScreenView] = useRecoilState(screeView);
-
 
   const store = () => {
     setSaveLoading(true);
@@ -56,7 +54,6 @@ const Header: React.FC<Props> = ({ storeCode, updateCleaning }) => {
       if (e.key.toLowerCase() === 'q' && e.ctrlKey) {
         e.preventDefault();
         const getSaveButton = document.querySelector('.saveBtn') as HTMLButtonElement;
-        // Add your code here
         getSaveButton.click();
       }
     })
@@ -88,7 +85,6 @@ const Header: React.FC<Props> = ({ storeCode, updateCleaning }) => {
           <img src={logo} alt="" className="w-10" />
           <h1 className="text-[1.3rem] text-white flex items-center"><span className="text-blue-400 text-4xl">J</span>snippet.</h1>
         </div>
-
 
         <div className="flex h-full items-center gap-4">
           <div className="relative">
