@@ -8,7 +8,8 @@ import { TbLayoutSidebarRightExpand } from 'react-icons/tb';
 import { FiCopy } from 'react-icons/fi';
 import { TbLayoutSidebarLeftExpand } from 'react-icons/tb';
 import { TbCircleCheck } from 'react-icons/tb'
-import { useEffect } from 'react';
+import { useRecoilValue } from 'recoil';
+import screenViews from '../recoil/screenView';
 
 
 interface Props {
@@ -26,17 +27,19 @@ interface Props {
 
 const Editor: React.FC<Props> = ({ title, language, onchange, copy, active, logo, extension, setActive, resetActiveEditor, value }): JSX.Element => {
     const [copied, setCopied] = useState<boolean>();
+    const screenView = useRecoilValue(screenViews);
 
     return (
         <div
+            style={screenView.resized ? { height: "100%", minHeight: "300px" } : {}}
             className={"editor-container " + (active === true ? ' active' : " noActive")}  >
             <div className="editor-title w-full h-10 bg-[#050509] flex justify-between items-center border-b-[#21202e] border-b-[4px] ">
                 {/* <h1>{title}</h1> */}
                 <button className='bg-[#21202e] h-full w-[6rem] text-white flex items-center justify-center gap-2  border-gray-600 border-t-4'>
                     {logo}
-                  <p className='text-[14px]'>{title}</p>  
+                    <p className='text-[14px]'>{title}</p>
                 </button>
-            
+
                 <div className="p-4 flex gap-3 items-center">
                     <div className="relative">
                         {copied &&
@@ -55,22 +58,26 @@ const Editor: React.FC<Props> = ({ title, language, onchange, copy, active, logo
                         }} className='text-white cursor-pointer active:text-green-400 duration-100 active:scale-[1.8]' />
                     </div>
 
+                    {!screenView.resized &&
+                        <>
 
-                    {
-                        active ?
-                            <TbLayoutSidebarRightExpand onClick={() => resetActiveEditor()} className='text-green-300 text-[1.4rem] cursor-pointer' /> :
-                            <TbLayoutSidebarLeftExpand onClick={() => setActive()} className='text-white text-[1.4rem] cursor-pointer' />
+                            {
+                                active ?
+                                    <TbLayoutSidebarRightExpand onClick={() => resetActiveEditor()} className='text-green-300 text-[1.4rem] cursor-pointer' /> :
+                                    <TbLayoutSidebarLeftExpand onClick={() => setActive()} className='text-white text-[1.4rem] cursor-pointer' />
+                            }
+                        </>
                     }
 
                 </div>
             </div>
             {/*  */}
 
-            
+
             {/* 445px */}
             <CodeMirror
                 value={value}
-                maxHeight='320px'
+                maxHeight='500px'
                 height='100%'
                 minHeight='320px'
                 className='editor'
@@ -85,6 +92,7 @@ const Editor: React.FC<Props> = ({ title, language, onchange, copy, active, logo
                     overflowX: "clip",
                     width: '100%',
                     maxHeight: '500px',
+                    minHeight: "500px",
                     height: '100%',
                 }}
             />

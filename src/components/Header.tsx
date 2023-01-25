@@ -11,6 +11,7 @@ import rightViewImage from '../assets/images/right-view.svg';
 import bottomViewImage from '../assets/images/bottom-view.svg';
 import screeView from "../recoil/screenView";
 import { useRecoilState } from "recoil";
+import { AiOutlineCloseCircle } from 'react-icons/ai';
 
 
 interface Props {
@@ -27,8 +28,6 @@ const Header: React.FC<Props> = ({ storeCode, updateCleaning }) => {
   const [resizeBottom, setResizeBottom] = useState<boolean>();
   const [screenView, setScreenView] = useRecoilState(screeView);
 
-
-  console.log(screenView);
 
   const store = () => {
     setSaveLoading(true);
@@ -54,7 +53,7 @@ const Header: React.FC<Props> = ({ storeCode, updateCleaning }) => {
 
   useEffect(() => {
     document.addEventListener('keydown', (e) => {
-      if (e.key.toLowerCase() === 'd' && e.ctrlKey) {
+      if (e.key.toLowerCase() === 'q' && e.ctrlKey) {
         e.preventDefault();
         const getSaveButton = document.querySelector('.saveBtn') as HTMLButtonElement;
         // Add your code here
@@ -63,6 +62,23 @@ const Header: React.FC<Props> = ({ storeCode, updateCleaning }) => {
     })
 
   }, []);
+
+  const changeView = (side: "left" | "right" | "bottom") => {
+    switch (side) {
+      case "left":
+        setScreenView({ ...screenView, resized: true, left: true, right: false, bottom: false });
+        break;
+      case "right":
+        setScreenView({ ...screenView, resized: true, left: false, right: true, bottom: false });
+        break;
+      case "bottom":
+        setScreenView({ ...screenView, resized: false, left: false, right: false, bottom: true });
+        break;
+      default:
+        break;
+    }
+
+  }
 
   return (
     <>
@@ -75,17 +91,18 @@ const Header: React.FC<Props> = ({ storeCode, updateCleaning }) => {
 
 
         <div className="flex h-full items-center gap-4">
-
           <div className="relative">
-
             {showScreenSizer &&
               <>
                 <div className="shadow-lg  border-4 border-[#ffffff12] w-[27rem] right-12 h-[11rem] p-4 rounded-md  absolute top-10 z-30 bg-[#0b0b13]">
+
+                  <AiOutlineCloseCircle onClick={()=> setShowScreenSizer(!showScreenSizer)} className="absolute text-lg cursor-pointer text-white" />
 
                   <h1 className="text-[#ffffffc2] text-center mb-8">Change editor view </h1>
 
                   <div className="w-full h-20 rounded-md bg-[#ffffff12] flex gap-8 items-center justify-center">
                     <div onClick={() => {
+                      changeView("left")
                       setResizeToRight(false)
                       setResizeToLeft(true)
                       setResizeBottom(false);
@@ -97,6 +114,7 @@ const Header: React.FC<Props> = ({ storeCode, updateCleaning }) => {
                       className="w-20 flex items-center justify-center"
                     >
                       <img onClick={() => {
+                        changeView("bottom")
                         setResizeBottom(true);
                         setResizeToRight(false)
                         setResizeToLeft(false)
@@ -105,6 +123,7 @@ const Header: React.FC<Props> = ({ storeCode, updateCleaning }) => {
 
                     <div
                       onClick={() => {
+                        changeView("right");
                         setResizeToRight(true)
                         setResizeToLeft(false)
                         setResizeBottom(false);

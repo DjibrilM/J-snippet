@@ -1,16 +1,18 @@
-
+import React from 'react';
 import { javascript } from '@codemirror/lang-javascript';
 import { html } from '@codemirror/lang-html';
 import { css } from '@codemirror/lang-css';
 import javasciptLogo from './assets/images/pngegg.png';
 import cssLogo from './assets/images/css-3.png';
 import htmlogo from './assets/images/html.png';
-import React from 'react';
 import Editor from './components/Editor';
 import { useState } from 'react';
 import { useTransition } from 'react';
 import Header from './components/Header';
 import { useEffect } from 'react';
+import screenViews from './recoil/screenView';
+import { useRecoilValue } from 'recoil';
+
 
 
 const initialState: {
@@ -63,7 +65,8 @@ const editedDoc = (html: string, style: string, javscript: string) => {
 const App = () => {
   const [editor, setEditor] = useState<any>(initialState);
   const [editing, startEditing] = useTransition();
-  const [sideView, setSideView] = useState<boolean>(true);
+  const screenView = useRecoilValue(screenViews);
+
   const [Editors, setEditors] =
     useState<{
       title: string,
@@ -145,8 +148,6 @@ const App = () => {
     }
   }
 
-
-
   const setActiveEditor = (index: number) => {
     const prevValue: {
       title: string,
@@ -216,6 +217,21 @@ const App = () => {
     setEditors([...maped]);
   }, []);
 
+
+  useEffect(() => {
+    const prevValue = [...Editors];
+    const findActiveEditor = prevValue.findIndex((el)=>{
+     return  el.active === true;
+    })
+
+
+    if(screenView.resized && findActiveEditor > -1 ) {
+      prevValue[findActiveEditor].active = false;
+      setEditors([...prevValue])
+    }
+    
+  }, [screenView])
+
   return (
     <>
 
@@ -229,15 +245,15 @@ const App = () => {
       />
 
       <section
-        style={sideView ? { display: "flex", flexDirection: "row" } : {}}
+        style={screenView.resized ? { display: "flex", flexDirection: `${screenView.right ? "row-reverse" : "row"}` } : {}}
         className='w-full h-full'>
         <div className="pen top-pen flex w-full border-r   bg-[#050509] gap-5"
-          style={sideView ? {
-            maxWidth: "500px",
+          style={screenView.resized ? {
+            maxWidth: "450px",
             height: "100vh",
             overflow: "auto",
             width: "100%",
-            flexDirection: 'column',
+            flexDirection: "column",
             gap: '5px',
           } : {}}>
 
@@ -263,8 +279,8 @@ const App = () => {
           }
 
         </div>
-        <div style={sideView ? { display: "none" } : {}} className="w-full h-10 border-t flex items-center pl-2 border-b bg-black relative bottom-2 border-[#ffffff53]">
-          <p className='text-[#ffffff82] tracking-widest	'>save : Ctrl + S</p>
+        <div style={screenView.resized ? { display: "none" } : {}} className="w-full h-10 border-t flex items-center pl-2 border-b bg-black relative bottom-2 border-[#ffffff53]">
+          <p className='text-[#ffffff82] tracking-widest	'>save : Ctrl + Q</p>
         </div>
         <div className="pen bottom-pen h-[90vh] w-full  ">
           <div className="h-12 w-full border-y">

@@ -6,7 +6,7 @@ const screeView = atom({
         resized: false,
         left: false,
         right: false,
-        botto: true,
+        bottom: true,
     }
 })
 
