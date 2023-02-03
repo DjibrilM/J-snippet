@@ -11,7 +11,6 @@ import { TbCircleCheck } from 'react-icons/tb'
 import { useRecoilValue } from 'recoil';
 import screenViews from '../recoil/screenView';
 
-
 interface Props {
     title: string,
     onchange: Function,
