@@ -73,6 +73,7 @@ const Editor: React.FC<Props> = ({ title, language, onchange, copy, active, logo
             </div>
             {/*  */}
 
+            
 
             {/* 445px */}
             <CodeMirror
