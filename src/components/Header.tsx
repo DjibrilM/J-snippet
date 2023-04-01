@@ -50,6 +50,8 @@ const Header: React.FC<Props> = ({ storeCode, updateCleaning }) => {
     setShowClearModel(true)
   }
 
+  
+  
   useEffect(() => {
     document.addEventListener('keydown', (e) => {
       if (e.key.toLowerCase() === 'q' && e.ctrlKey) {
