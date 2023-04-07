@@ -18,7 +18,6 @@ interface Props {
   updateCleaning: Function
 }
 
-
 const Header: React.FC<Props> = ({ storeCode, updateCleaning }) => {
   const [saveLoading, setSaveLoading] = useState<boolean>();
   const [showClearModel, setShowClearModel] = useState<boolean>(false);
