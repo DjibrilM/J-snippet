@@ -13,8 +13,6 @@ import { useEffect } from 'react';
 import screenViews from './recoil/screenView';
 import { useRecoilValue } from 'recoil';
 
-
-
 const initialState: {
   javascript: {
     codes: string,
