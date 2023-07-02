@@ -59,7 +59,6 @@ const editedDoc = (html: string, style: string, javscript: string) => {
   `
 }
 
-
 const App = () => {
   const [editor, setEditor] = useState<any>(initialState);
   const [editing, startEditing] = useTransition();
