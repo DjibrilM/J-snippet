@@ -106,7 +106,6 @@ const App = () => {
 
     try {
       startEditing(() => {
-        console.log('hiting')
         const previousValue: any = editor;
         previousValue[language].codes = value;
         setEditor({ ...previousValue });
@@ -118,10 +117,10 @@ const App = () => {
 
 
   const copyText = (language: string) => {
+
     switch (language) {
       case "javascript":
         navigator.clipboard.writeText(editor['javascript'].codes).then(result => {
-          // alert('copied' + 'rrrrr')
         }).catch(error => {
           alert('fail to copy')
         })
@@ -134,7 +133,7 @@ const App = () => {
         })
         break;
       case "html":
-        navigator.clipboard.writeText(editor['javascript'].codes).then(result => {
+        navigator.clipboard.writeText(editor['html'].codes).then(result => {
           // alert('copied' + 'rrrrr')
         }).catch(error => {
           alert('fail to copy')
@@ -217,16 +216,16 @@ const App = () => {
 
   useEffect(() => {
     const prevValue = [...Editors];
-    const findActiveEditor = prevValue.findIndex((el)=>{
-     return  el.active === true;
+    const findActiveEditor = prevValue.findIndex((el) => {
+      return el.active === true;
     })
 
 
-    if(screenView.resized && findActiveEditor > -1 ) {
+    if (screenView.resized && findActiveEditor > -1) {
       prevValue[findActiveEditor].active = false;
       setEditors([...prevValue])
     }
-    
+
   }, [screenView])
 
   return (
@@ -244,7 +243,7 @@ const App = () => {
       <section
         style={screenView.resized ? { display: "flex", flexDirection: `${screenView.right ? "row-reverse" : "row"}` } : {}}
         className='w-full h-full'>
-        <div className="pen top-pen flex w-full border-r   bg-[#050509] gap-5"
+        <div className="pen top-pen relative flex w-full border-r   bg-[#050509] gap-5"
           style={screenView.resized ? {
             maxWidth: "450px",
             height: "100vh",
@@ -258,6 +257,7 @@ const App = () => {
             Editors.map((editor: any, index: number) => {
               return (
                 <Editor
+                  key={index}
                   onchange={(value: string, language: string) => {
                     edit(value, language);
                   }}

@@ -32,8 +32,9 @@ const Editor: React.FC<Props> = ({ title, language, onchange, copy, active, logo
     return (
         <div
             style={screenView.resized ? { height: "100%", minHeight: "300px" } : {}}
-            className={"editor-container " + (active === true ? ' active' : " noActive")}  >
-            <div className="editor-title w-full h-10 bg-[#050509] flex justify-between items-center border-b-[#21202e] border-b-[4px] ">
+            className={"editor-container relative " + (active === true ? ' active' : " noActive")}  >
+
+            <div className="editor-title w-full h-10 bg-[#050509] z-[51]  flex justify-between   items-center border-b-[#21202e] border-b-[4px] ">
                 {/* <h1>{title}</h1> */}
                 <button className='bg-[#21202e] h-full w-[6rem] text-white flex items-center justify-center gap-2  border-gray-600 border-t-4'>
                     {logo}
@@ -50,7 +51,7 @@ const Editor: React.FC<Props> = ({ title, language, onchange, copy, active, logo
                         }
                         <FiCopy onClick={() => {
                             setCopied(true);
-                            copy("javascript")
+                            copy(language)
                             setTimeout(() => {
                                 setCopied(false);
                             }, 500);
@@ -73,28 +74,27 @@ const Editor: React.FC<Props> = ({ title, language, onchange, copy, active, logo
             </div>
             {/*  */}
 
-            
+
 
             {/* 445px */}
             <CodeMirror
                 value={value}
-                maxHeight='500px'
+                maxHeight='450px'
                 height='100%'
                 minHeight='320px'
-                className='editor'
+                className='editor border-2 relative top-6 border-red-50 bg-[#050509]'
                 extensions={[extension({})]}
                 lang='javascript'
                 onChange={(value: string) => onchange(value, language)}
                 theme={aura}
                 style={{
                     border: "solid  0px",
-                    position: "absolute",
                     overflowY: "auto",
                     overflowX: "clip",
                     width: '100%',
-                    maxHeight: '500px',
-                    minHeight: "500px",
                     height: '100%',
+                    position: "relative",
+                    top: "-1px"
                 }}
             />
         </div>
@@ -102,3 +102,6 @@ const Editor: React.FC<Props> = ({ title, language, onchange, copy, active, logo
 };
 
 export default Editor;
+
+
+// 050509
