@@ -13,6 +13,7 @@ import screeView from "../recoil/screenView";
 import { useRecoilState } from "recoil";
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 
+
 interface Props {
   storeCode: Function,
   updateCleaning: Function
