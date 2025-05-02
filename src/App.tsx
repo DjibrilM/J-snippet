@@ -274,7 +274,6 @@ const App = () => {
               )
             })
           }
-
         </div>
         <div style={screenView.resized ? { display: "none" } : {}} className="w-full h-10 border-t flex items-center pl-2 border-b bg-black relative bottom-2 border-[#ffffff53]">
           <p className='text-[#ffffff82] tracking-widest	'>save : Ctrl + Q</p>
